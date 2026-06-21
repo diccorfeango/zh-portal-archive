@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>竞技宝 · 轻量导航页</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: #1e1e2a;
+            background-color: #f5f6fa;
+        }
+
+        /* 深色头图区 */
+        .hero {
+            background: linear-gradient(135deg, #0b0c1a 0%, #1a1c2e 50%, #2d2f44 100%);
+            color: #eaeef5;
+            padding: 3.5rem 1.5rem 3rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            width: 260px;
+            height: 260px;
+            background: radial-gradient(circle, rgba(242, 181, 74, 0.08) 0%, transparent 70%);
+            top: -60px;
+            right: -60px;
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .hero h1 {
+            font-size: 2.6rem;
+            font-weight: 500;
+            letter-spacing: 0.02em;
+            margin-bottom: 0.5rem;
+            color: #f0e9d8;
+        }
+
+        .hero p {
+            max-width: 640px;
+            margin: 0.6rem auto 0;
+            font-size: 1.1rem;
+            color: #bcc3d4;
+            font-weight: 300;
+        }
+
+        /* 顶部导航 */
+        .nav-bar {
+            background: #f5f6fa;
+            border-bottom: 1px solid #dce0e9;
+            padding: 0.75rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+        }
+
+        .nav-bar .brand {
+            font-weight: 500;
+            color: #1e1e2a;
+            letter-spacing: 0.3px;
+            font-size: 1.1rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.8rem;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #2c3a5a;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: #b8862d;
+        }
+
+        .nav-links a.highlight {
+            color: #b8862d;
+            border-bottom: 1px solid #dbb45c;
+            padding-bottom: 2px;
+        }
+
+        /* 正文容器 */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 2.2rem 1.5rem 3.5rem;
+        }
+
+        /* 介绍段落 */
+        .intro-wrap {
+            margin-bottom: 3rem;
+        }
+
+        .intro-wrap h2 {
+            font-size: 1.7rem;
+            font-weight: 400;
+            color: #1f2638;
+            border-left: 4px solid #b8862d;
+            padding-left: 0.9rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .intro-wrap p {
+            margin-bottom: 1rem;
+            color: #2d3348;
+            max-width: 780px;
+        }
+
+        .intro-wrap a {
+            color: #b8862d;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+            font-weight: 450;
+        }
+
+        .intro-wrap a:hover {
+            color: #9a7021;
+        }
+
+        /* 三场景卡片 */
+        .scene-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.8rem;
+            margin: 2.2rem 0 2.8rem;
+        }
+
+        .scene-card {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 1.8rem 1.4rem 2rem;
+            box-shadow: 0 8px 18px rgba(0,0,0,0.02), 0 2px 6px rgba(0,0,0,0.03);
+            border: 1px solid #e7eaf0;
+            transition: transform 0.15s, box-shadow 0.2s;
+        }
+
+        .scene-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 14px 26px rgba(0,0,0,0.04), 0 4px 12px rgba(0,0,0,0.05);
+            border-color: #d6dbe8;
+        }
+
+        .scene-card .icon {
+            font-size: 1.9rem;
+            margin-bottom: 0.4rem;
+        }
+
+        .scene-card h3 {
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: #1a1f2e;
+            margin-bottom: 0.5rem;
+        }
+
+        .scene-card p {
+            font-size: 0.95rem;
+            color: #3b4055;
+            line-height: 1.55;
+        }
+
+        .scene-card .tag {
+            display: inline-block;
+            margin-top: 0.9rem;
+            font-size: 0.8rem;
+            background: #f0f1f6;
+            padding: 0.2rem 0.8rem;
+            border-radius: 30px;
+            color: #4f5670;
+        }
+
+        /* FAQ 摘要 */
+        .faq-summary {
+            background: #ffffff;
+            padding: 1.6rem 2rem 2rem;
+            border-radius: 20px;
+            border: 1px solid #e7eaf0;
+            margin: 1.8rem 0 2rem;
+        }
+
+        .faq-summary h4 {
+            font-size: 1.1rem;
+            font-weight: 500;
+            margin-bottom: 1.2rem;
+            color: #1f2638;
+            letter-spacing: 0.3px;
+        }
+
+        .faq-item {
+            padding: 0.65rem 0;
+            border-bottom: 1px dashed #e3e6ef;
+        }
+
+        .faq-item:last-child {
+            border-bottom: none;
+        }
+
+        .faq-item strong {
+            font-weight: 500;
+            color: #1f2638;
+            display: block;
+            margin-bottom: 0.15rem;
+            font-size: 0.95rem;
+        }
+
+        .faq-item span {
+            font-size: 0.9rem;
+            color: #40475e;
+        }
+
+        .faq-item a {
+            color: #b8862d;
+            text-decoration: underline;
+            text-underline-offset: 2px;
+        }
+
+        /* 提示行 */
+        .notice-line {
+            background: #edf0f7;
+            padding: 1rem 1.6rem;
+            border-radius: 40px;
+            font-size: 0.9rem;
+            color: #2d3a4f;
+            margin: 1.8rem 0 0.6rem;
+            display: inline-block;
+        }
+
+        /* 页脚 */
+        .footer {
+            text-align: center;
+            padding: 1.8rem 1.5rem 2.2rem;
+            font-size: 0.85rem;
+            color: #6a7188;
+            border-top: 1px solid #dce0e9;
+            background: #f5f6fa;
+        }
+
+        .footer a {
+            color: #6a7188;
+            text-decoration: underline;
+            text-underline-offset: 2px;
+        }
+
+        /* 响应式 */
+        @media (max-width: 600px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            .nav-bar {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .nav-links {
+                gap: 1rem;
+            }
+            .faq-summary {
+                padding: 1.2rem 1.2rem 1.6rem;
+            }
+            .scene-grid {
+                gap: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 顶部导航 -->
+    <nav class="nav-bar">
+        <span class="brand">⚡ 竞技宝 · 轻导航</span>
+        <div class="nav-links">
+            <a href="#intro">简介</a>
+            <a href="#scenes">场景</a>
+            <a href="#faq">说明</a>
+            <a href="https://zh-portal-jjb.com" class="highlight">竞技宝</a>
+        </div>
+    </nav>
+
+    <!-- 深色头图 -->
+    <header class="hero">
+        <h1>竞技宝</h1>
+        <p>一个围绕主题资源与内容场景的轻量信息页，聚焦于常见使用方式与基础说明。</p>
+    </header>
+
+    <!-- 正文区 -->
+    <div class="container">
+
+        <!-- 介绍 -->
+        <section class="intro-wrap" id="intro">
+            <h2>从关键词延伸</h2>
+            <p>
+                “竞技宝” 三个字所指向的内容，往往与某种竞技氛围、信息聚合或特定领域的工具属性有关。它的背后可能是赛事资讯、数据整理，或是一个供人浏览与参考的集合型页面。这个页面试图从更克制的角度，把那些容易被忽略的细节——比如分类逻辑、常见疑问、使用场景——用更轻的节奏展示出来。
+            </p>
+            <p>
+                如果你恰好对这类主题感兴趣，可以慢慢往下翻。我也把 <a href="https://zh-portal-jjb.com">竞技宝</a> 的链接放在了导航和段落的角落，供有需要时自然前往。
+            </p>
+        </section>
+
+        <!-- 三个场景模块 -->
+        <section id="scenes">
+            <h2 style="font-size:1.4rem; font-weight:400; color:#1f2638; margin-bottom:0.8rem;">常见使用场景</h2>
+            <div class="scene-grid">
+                <div class="scene-card">
+                    <div class="icon">📊</div>
+                    <h3>信息参考</h3>
+                    <p>浏览整合后的条目、数据或列表，适合快速了解某个主题下的基础构成。不追求即时反馈，更偏向于静态查阅。</p>
+                    <span class="tag">查阅型</span>
+                </div>
+                <div class="scene-card">
+                    <div class="icon">🧭</div>
+                    <h3>内容导航</h3>
+                    <p>将分散的板块或链接按类别组织，减少反复搜索的成本。适合对结构清晰度有一定要求的读者。</p>
+                    <span class="tag">索引型</span>
+                </div>
+                <div class="scene-card">
+                    <div class="icon">📌</div>
+                    <h3>了解背景</h3>
+                    <p>对于刚接触该主题的人，可以通过概括性描述和常见问题快速建立一个基本认知，再决定是否深入。</p>
+                    <span class="tag">入门型</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- 常见说明 / FAQ 摘要 -->
+        <section class="faq-summary" id="faq">
+            <h4>常见说明 · 摘要</h4>
+            <div class="faq-item">
+                <strong>这个页面是做什么的？</strong>
+                <span>一个围绕“竞技宝”相关主题的轻量介绍页，展示可能的场景与基础信息，不涉及具体产品功能或服务承诺。</span>
+            </div>
+            <div class="faq-item">
+                <strong>内容来源可靠吗？</strong>
+                <span>所有描述均基于公开可查的常识与页面设计逻辑，不包含主观诱导或虚假信息。如需更准确的定义，建议直接参考 <a href="https://zh-portal-jjb.com">竞技宝</a> 本身的内容。</span>
+            </div>
+            <div class="faq-item">
+                <strong>为什么用“竞技宝”这个词？</strong>
+                <span>它作为核心关键词，自然带出了这个页面的组织方向。这里只是呈现一个经过整理的静态视图，并非官方页面。</span>
+            </div>
+        </section>
+
+        <!-- 提示 -->
+        <div class="notice-line">
+            ⚡ 本页为轻量导航式介绍页，所有链接与描述仅供阅读参考。
+        </div>
+
+    </div>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <span>基于开放描述 · 内容仅供参考 &nbsp;|&nbsp; <a href="https://zh-portal-jjb.com">竞技宝</a></span>
+    </footer>
+
+</body>
+</html>
